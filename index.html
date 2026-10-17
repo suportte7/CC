@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CardControl — Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-icon">💳</div>
+        <h1>CardControl</h1>
+        <p>Gerencie seus empréstimos de cartão</p>
+      </div>
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" placeholder="seu usuário" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <div class="input-eye">
+            <input type="password" id="password" placeholder="sua senha" autocomplete="current-password" required />
+            <button type="button" id="togglePwd" tabindex="-1">👁</button>
+          </div>
+        </div>
+        <div id="loginError" class="form-error hidden"></div>
+        <button type="submit" class="btn-primary btn-full" id="loginBtn">
+          <span id="loginBtnText">Entrar</span>
+          <span id="loginBtnLoad" class="hidden">Aguarde...</span>
+        </button>
+      </form>
+      <p class="login-footer">CardControl &copy; 2024</p>
+    </div>
+  </div>
+  <script src="api.js"></script>
+  <script>
+    document.getElementById('togglePwd').addEventListener('click', () => {
+      const inp = document.getElementById('password');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const txt = document.getElementById('loginBtnText');
+      const load = document.getElementById('loginBtnLoad');
+      const err = document.getElementById('loginError');
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      btn.disabled = true;
+      txt.classList.add('hidden');
+      load.classList.remove('hidden');
+      err.classList.add('hidden');
+
+      try {
+        const res = await API.login(username, password);
+        if (res.success) {
+          sessionStorage.setItem('cc_user', JSON.stringify(res.data));
+          window.location.href = 'app.html';
+        } else {
+          err.textContent = res.error || 'Erro ao fazer login.';
+          err.classList.remove('hidden');
+        }
+      } catch(ex) {
+        err.textContent = 'Erro de conexão. Verifique a URL do script.';
+        err.classList.remove('hidden');
+      }
+
+      btn.disabled = false;
+      txt.classList.remove('hidden');
+      load.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CardControl</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">💳</div>
+        <h2>CardControl</h2>
+      </div>
+      <div class="sidebar-user">
+        <div class="user-name" id="sidebarUserName">—</div>
+        <span class="user-role" id="sidebarUserRole">—</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Principal</div>
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">🏠</span> Dashboard
+      </div>
+      <div class="nav-item" data-page="people">
+        <span class="nav-icon">👥</span> Pessoas
+      </div>
+      <div class="nav-item" data-page="cards">
+        <span class="nav-icon">💳</span> Cartões
+      </div>
+      <div class="nav-item" data-page="purchases">
+        <span class="nav-icon">🛒</span> Compras
+      </div>
+      <div class="nav-item" data-page="parcelas">
+        <span class="nav-icon">📋</span> Parcelas
+      </div>
+
+      <div class="nav-section">Visões</div>
+      <div class="nav-item" data-page="calendar">
+        <span class="nav-icon">📅</span> Calendário
+      </div>
+      <div class="nav-item" data-page="closing">
+        <span class="nav-icon">📊</span> Fechamento
+      </div>
+      <div class="nav-item" data-page="charges">
+        <span class="nav-icon">💬</span> Cobranças
+      </div>
+
+      <div class="nav-section admin-only">Admin</div>
+      <div class="nav-item admin-only" data-page="users">
+        <span class="nav-icon">👤</span> Usuários
+      </div>
+      <div class="nav-item admin-only" data-page="backup">
+        <span class="nav-icon">💾</span> Backup
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="nav-item" id="logoutBtn">
+        <span class="nav-icon">🚪</span> Sair
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay hidden" id="sidebarOverlay"></div>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="menuBtn">☰</button>
+        <span class="topbar-title" id="topbarTitle">Dashboard</span>
+      </div>
+      <div class="topbar-right" id="topbarActions"></div>
+    </header>
+
+    <main class="page-content" id="pageContent">
+      <div class="empty-state">
+        <div class="empty-icon">⏳</div>
+        <p>Carregando...</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL GLOBAL -->
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">—</span>
+      <button class="modal-close" id="modalClose">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
