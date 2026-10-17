@@ -2,7 +2,7 @@
 // api.js — CardControl — versão corrigida para Apps Script
 // ============================================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwTmtM_imbxOND9o7orrbUDWg73ol_q7UD8nwYfW4RSyLIOrMQJSXELyyvHXxI2K_DMyw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzexNQ5hoYMnGeNq1mW7FGagysOpPQzCItNTSFuZPNjwxprZonMH_t7ys1KN9eiynGOgQ/exec';
 
 async function apiCall(action, data = {}) {
   try {
