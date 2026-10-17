@@ -3,109 +3,225 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CardControl</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>CardControl — Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 50%, #e8f0fe 100%);
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 40px rgba(99,102,241,0.10);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-logo .logo-icon {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .login-logo h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .login-logo p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+      background: #f8fafc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .input-wrap input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.10);
+      background: #fff;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn-login:hover  { opacity: 0.92; }
+    .btn-login:active { transform: scale(0.98); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .login-error {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    .login-error.show { display: block; }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+  </style>
 </head>
 <body>
-<div class="app-layout">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <div class="logo-icon">💳</div>
-        <h2>CardControl</h2>
-      </div>
-      <div class="sidebar-user">
-        <div class="user-name" id="sidebarUserName">—</div>
-        <span class="user-role" id="sidebarUserRole">—</span>
-      </div>
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <div class="login-logo">
+      <span class="logo-icon">💳</span>
+      <h1>CardControl</h1>
+      <p>Controle de empréstimos de cartão</p>
     </div>
 
-    <nav class="sidebar-nav">
-      <div class="nav-section">Principal</div>
-      <div class="nav-item active" data-page="dashboard">
-        <span class="nav-icon">🏠</span> Dashboard
-      </div>
-      <div class="nav-item" data-page="people">
-        <span class="nav-icon">👥</span> Pessoas
-      </div>
-      <div class="nav-item" data-page="cards">
-        <span class="nav-icon">💳</span> Cartões
-      </div>
-      <div class="nav-item" data-page="purchases">
-        <span class="nav-icon">🛒</span> Compras
-      </div>
-      <div class="nav-item" data-page="parcelas">
-        <span class="nav-icon">📋</span> Parcelas
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label for="username">Usuário</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="username" placeholder="seu usuário" autocomplete="username" required/>
+        </div>
       </div>
 
-      <div class="nav-section">Visões</div>
-      <div class="nav-item" data-page="calendar">
-        <span class="nav-icon">📅</span> Calendário
-      </div>
-      <div class="nav-item" data-page="closing">
-        <span class="nav-icon">📊</span> Fechamento
-      </div>
-      <div class="nav-item" data-page="charges">
-        <span class="nav-icon">💬</span> Cobranças
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" placeholder="sua senha" autocomplete="current-password" required/>
+        </div>
       </div>
 
-      <div class="nav-section admin-only">Admin</div>
-      <div class="nav-item admin-only" data-page="users">
-        <span class="nav-icon">👤</span> Usuários
-      </div>
-      <div class="nav-item admin-only" data-page="backup">
-        <span class="nav-icon">💾</span> Backup
-      </div>
-    </nav>
+      <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
 
-    <div class="sidebar-footer">
-      <div class="nav-item" id="logoutBtn">
-        <span class="nav-icon">🚪</span> Sair
-      </div>
-    </div>
-  </aside>
-
-  <div class="sidebar-overlay hidden" id="sidebarOverlay"></div>
-
-  <!-- MAIN -->
-  <div class="main-content">
-    <header class="topbar">
-      <div class="topbar-left">
-        <button class="mobile-menu-btn" id="menuBtn">☰</button>
-        <span class="topbar-title" id="topbarTitle">Dashboard</span>
-      </div>
-      <div class="topbar-right" id="topbarActions"></div>
-    </header>
-
-    <main class="page-content" id="pageContent">
-      <div class="empty-state">
-        <div class="empty-icon">⏳</div>
-        <p>Carregando...</p>
-      </div>
-    </main>
+    <div class="login-footer">CardControl © 2024</div>
   </div>
 </div>
 
-<!-- MODAL GLOBAL -->
-<div class="modal-overlay hidden" id="modalOverlay">
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      <span class="modal-title" id="modalTitle">—</span>
-      <button class="modal-close" id="modalClose">×</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-    <div class="modal-footer" id="modalFooter"></div>
-  </div>
-</div>
+<script>
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzexNQ5hoYMnGeNq1mW7FGagysOpPQzCItNTSFuZPNjwxprZonMH_t7ys1KN9eiynGOgQ/exec';
 
-<!-- TOAST -->
-<div class="toast-container" id="toastContainer"></div>
+  // Se já tem sessão, vai direto pro app
+  if (localStorage.getItem('cardcontrol_session')) {
+    window.location.href = 'app.html';
+  }
 
-<script src="api.js"></script>
-<script src="app.js"></script>
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn   = document.getElementById('btnLogin');
+    const error = document.getElementById('loginError');
+    const user  = document.getElementById('username').value.trim();
+    const pass  = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
+    error.classList.remove('show');
+
+    try {
+      const params = new URLSearchParams();
+      params.append('action', 'login');
+      params.append('data', JSON.stringify({ username: user, password: pass }));
+
+      const res  = await fetch(`${API_URL}?${params.toString()}`, {
+        method: 'GET', redirect: 'follow'
+      });
+      const text = await res.text();
+      const json = JSON.parse(text);
+
+      if (json.success) {
+        localStorage.setItem('cardcontrol_session', JSON.stringify(json.data));
+        window.location.href = 'app.html';
+      } else {
+        error.textContent = json.error || 'Erro ao fazer login.';
+        error.classList.add('show');
+      }
+    } catch(err) {
+      error.textContent = 'Erro de conexão. Tente novamente.';
+      error.classList.add('show');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  });
+</script>
+
 </body>
 </html>
