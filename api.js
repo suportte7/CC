@@ -1,5 +1,5 @@
 // ============================================================
-// api.js — CardControl — Comunicação Front ↔ Back
+// api.js — CardControl — versão corrigida para Apps Script
 // ============================================================
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbwTmtM_imbxOND9o7orrbUDWg73ol_q7UD8nwYfW4RSyLIOrMQJSXELyyvHXxI2K_DMyw/exec';
@@ -10,14 +10,17 @@ async function apiCall(action, data = {}) {
     params.append('action', action);
     params.append('data', JSON.stringify(data));
 
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString()
+    const res = await fetch(`${API_URL}?${params.toString()}`, {
+      method: 'GET',
+      redirect: 'follow'
     });
 
-    const json = await res.json();
-    return json;
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return { success: false, error: 'Resposta inválida do servidor: ' + text.substring(0, 100) };
+    }
   } catch (err) {
     return { success: false, error: 'Erro de conexão: ' + err.message };
   }
